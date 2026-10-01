@@ -34,7 +34,7 @@ public class PacienteService {
 		return "Paciente editado com sucesso!";
 	}
 	
-	// Editar Paciente
+	// Deletar Paciente
 	public String deletarPaciente(long id) {
 		this.pacRepo.deleteById(id);
 		return "Paciente deletado com sucesso!";

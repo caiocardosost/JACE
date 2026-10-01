@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/paciente")
+@CrossOrigin("*")
 public class PacienteController {
 	
 	//INJEÇÂO DE DEPENDENCIA DO SERVICE
@@ -31,7 +33,7 @@ public class PacienteController {
 	
 	//------------ENDPOINTS----------------
 	
-	//Novo registro
+	// Novo registro
 	@PostMapping("/novo")
 	public ResponseEntity<String> registarPaciente(@Valid @RequestBody Paciente paciente){
 		try {
@@ -39,13 +41,13 @@ public class PacienteController {
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			return new ResponseEntity<String>("erro ao salvar", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Erro ao salvar", HttpStatus.BAD_REQUEST);
 
 		}
 	}
 	
 	
-	//Editar paciente
+	// Editar paciente
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<String> editarPaciente(@PathVariable long id, @Valid @RequestBody Paciente paciente){
 		try {
@@ -53,12 +55,12 @@ public class PacienteController {
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			return new ResponseEntity<String>("erro ao editar", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Erro ao editar", HttpStatus.BAD_REQUEST);
 
 		}
 	}
 	
-	//deletar paciente
+	// Deletar paciente
 	@DeleteMapping("/remover/{id}")
 	public ResponseEntity<String> deletarPaciente(@PathVariable long id){
 		try {
@@ -66,7 +68,7 @@ public class PacienteController {
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			return new ResponseEntity<String>("erro ao remover", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Erro ao remover", HttpStatus.BAD_REQUEST);
 		}
 	}
 	

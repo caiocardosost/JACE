@@ -33,7 +33,7 @@ public class ProfissionalService {
 		return "Profissional editado com sucesso!";
 	}
 	
-	// Editar Profissional
+	// deletar Profissional
 	public String deletarProfissional(long id) {
 		this.proRepo.deleteById(id);
 		return "Profissional deletado com sucesso!";

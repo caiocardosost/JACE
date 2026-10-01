@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.jace.entity.Profissional;
-import app.jace.service.ProfissionalService;
+import app.jace.entity.Procedimento;
+import app.jace.service.ProcedimentoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/profissional")
+@RequestMapping("/api/procedimento")
 @CrossOrigin("*")
-public class ProfissionalController {
+public class ProcedimentoController {
 	
 	//INJEÇÂO DE DEPENDENCIA DO SERVICE
-	private ProfissionalService proServ;
+	private ProcedimentoService proceServ;
 	
-	public ProfissionalController (ProfissionalService proServ) {
-		this.proServ = proServ;
+	public ProcedimentoController (ProcedimentoService proceServ) {
+		this.proceServ = proceServ;
 	}
 	
 	
@@ -35,9 +35,9 @@ public class ProfissionalController {
 	
 	// Novo registro
 	@PostMapping("/novo")
-	public ResponseEntity<String> registarProfissional(@Valid @RequestBody Profissional profissional){
+	public ResponseEntity<String> registarProcedimento(@Valid @RequestBody Procedimento procedimento){
 		try {
-			String resposta = this.proServ.registrarProfissional(profissional);
+			String resposta = this.proceServ.registrarProcedimento(procedimento);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -47,11 +47,11 @@ public class ProfissionalController {
 	}
 	
 	
-	// Editar Profissional
+	// Editar Procedimento
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<String> editarProfissional(@PathVariable long id, @Valid @RequestBody Profissional profissional){
+	public ResponseEntity<String> editarProcedimento(@PathVariable long id, @Valid @RequestBody Procedimento procedimento){
 		try {
-			String resposta = this.proServ.editarProfissional(id, profissional);
+			String resposta = this.proceServ.editarProcedimento(id, procedimento);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -60,11 +60,11 @@ public class ProfissionalController {
 		}
 	}
 	
-	// Deletar Profissional
+	// Deletar Procedimento
 	@DeleteMapping("/remover/{id}")
-	public ResponseEntity<String> deletarProfissional(@PathVariable long id){
+	public ResponseEntity<String> deletarProcedimento(@PathVariable long id){
 		try {
-			String resposta = this.proServ.deletarProfissional(id);
+			String resposta = this.proceServ.deletarProcedimento(id);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -72,30 +72,31 @@ public class ProfissionalController {
 		}
 	}
 	
-	// Buscar Profissional
+	// Buscar Procedimento
 	@GetMapping("/busca/{id}")
-	public ResponseEntity<Profissional> buscaProfissional(@PathVariable long id){
+	public ResponseEntity<Procedimento> buscaProcedimento(@PathVariable long id){
 		try {
-			Profissional resposta = this.proServ.buscaProfissionalId(id);
-			return new ResponseEntity<Profissional>(resposta, HttpStatus.OK);
+			Procedimento resposta = this.proceServ.buscaProcedimentoId(id);
+			return new ResponseEntity<Procedimento>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Profissional resposta = null;
-			return new ResponseEntity<Profissional>(resposta, HttpStatus.BAD_REQUEST);
+			Procedimento resposta = null;
+			return new ResponseEntity<Procedimento>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// Busca todos os Profissional
+	// Busca todos os Procedimento
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Profissional>> buscaPaciente(){
+	public ResponseEntity<List<Procedimento>> buscaProcedimento(){
 		try {
-			List<Profissional> resposta = this.proServ.buscaProfissionalTodos();
-			return new ResponseEntity<List<Profissional>>(resposta, HttpStatus.OK);
+			List<Procedimento> resposta = this.proceServ.buscaProcedimentoTodos();
+			return new ResponseEntity<List<Procedimento>>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			List<Profissional> resposta = null;
-			return new ResponseEntity<List<Profissional>>(resposta, HttpStatus.BAD_REQUEST);
+			List<Procedimento> resposta = null;
+			return new ResponseEntity<List<Procedimento>>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+		
+
 }

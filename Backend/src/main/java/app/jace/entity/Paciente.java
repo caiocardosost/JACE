@@ -41,8 +41,7 @@ public class Paciente {
 	@NotNull (message = "Obrigatorio inserir o endereco")
 	private String endereco;
 	
-	@NotNull (message = "Obrigatorio inserir o status")
-	private String status;
+	private String status = "ATIVO";
 	
 		
 }

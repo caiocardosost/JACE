@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.jace.entity.Profissional;
-import app.jace.service.ProfissionalService;
+import app.jace.entity.Especialidade;
+import app.jace.service.EspecialidadeService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/profissional")
+@RequestMapping("/api/especialidade")
 @CrossOrigin("*")
-public class ProfissionalController {
+public class EspecialidadeController {
 	
-	//INJEÇÂO DE DEPENDENCIA DO SERVICE
-	private ProfissionalService proServ;
+	// INJEÇÂO DE DEPENDENCIA DO SERVICE
+	private EspecialidadeService espServ;
 	
-	public ProfissionalController (ProfissionalService proServ) {
-		this.proServ = proServ;
+	public EspecialidadeController (EspecialidadeService espServ) {
+		this.espServ = espServ;
 	}
 	
 	
@@ -35,9 +35,9 @@ public class ProfissionalController {
 	
 	// Novo registro
 	@PostMapping("/novo")
-	public ResponseEntity<String> registarProfissional(@Valid @RequestBody Profissional profissional){
+	public ResponseEntity<String> registarEspecialidade(@Valid @RequestBody Especialidade especialidade){
 		try {
-			String resposta = this.proServ.registrarProfissional(profissional);
+			String resposta = this.espServ.registrarEspecialidade(especialidade);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -47,11 +47,11 @@ public class ProfissionalController {
 	}
 	
 	
-	// Editar Profissional
+	// Editar Especialidade
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<String> editarProfissional(@PathVariable long id, @Valid @RequestBody Profissional profissional){
+	public ResponseEntity<String> editarEspecialidade(@PathVariable long id, @Valid @RequestBody Especialidade especialidade){
 		try {
-			String resposta = this.proServ.editarProfissional(id, profissional);
+			String resposta = this.espServ.editarEspecialidade(id, especialidade);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -60,11 +60,11 @@ public class ProfissionalController {
 		}
 	}
 	
-	// Deletar Profissional
+	// Deletar Especialidade
 	@DeleteMapping("/remover/{id}")
-	public ResponseEntity<String> deletarProfissional(@PathVariable long id){
+	public ResponseEntity<String> deletarEspecialidade(@PathVariable long id){
 		try {
-			String resposta = this.proServ.deletarProfissional(id);
+			String resposta = this.espServ.deletarEspecialidade(id);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -72,30 +72,30 @@ public class ProfissionalController {
 		}
 	}
 	
-	// Buscar Profissional
+	// Buscar Especialidade
 	@GetMapping("/busca/{id}")
-	public ResponseEntity<Profissional> buscaProfissional(@PathVariable long id){
+	public ResponseEntity<Especialidade> buscaEspecialidade(@PathVariable long id){
 		try {
-			Profissional resposta = this.proServ.buscaProfissionalId(id);
-			return new ResponseEntity<Profissional>(resposta, HttpStatus.OK);
+			Especialidade resposta = this.espServ.buscaEspecialidadeId(id);
+			return new ResponseEntity<Especialidade>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Profissional resposta = null;
-			return new ResponseEntity<Profissional>(resposta, HttpStatus.BAD_REQUEST);
+			Especialidade resposta = null;
+			return new ResponseEntity<Especialidade>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// Busca todos os Profissional
+	// Busca todas as Especialidade
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Profissional>> buscaPaciente(){
+	public ResponseEntity<List<Especialidade>> buscaEspecialidade(){
 		try {
-			List<Profissional> resposta = this.proServ.buscaProfissionalTodos();
-			return new ResponseEntity<List<Profissional>>(resposta, HttpStatus.OK);
+			List<Especialidade> resposta = this.espServ.buscaEspecialidadeTodas();
+			return new ResponseEntity<List<Especialidade>>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			List<Profissional> resposta = null;
-			return new ResponseEntity<List<Profissional>>(resposta, HttpStatus.BAD_REQUEST);
+			List<Especialidade> resposta = null;
+			return new ResponseEntity<List<Especialidade>>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 }

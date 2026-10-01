@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.jace.entity.Profissional;
-import app.jace.service.ProfissionalService;
+import app.jace.entity.Agendamento;
+import app.jace.service.AgendamentoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/profissional")
+@RequestMapping("/api/agendamento")
 @CrossOrigin("*")
-public class ProfissionalController {
-	
+public class AgendamentoController {
+
 	//INJEÇÂO DE DEPENDENCIA DO SERVICE
-	private ProfissionalService proServ;
+	private AgendamentoService agServ;
 	
-	public ProfissionalController (ProfissionalService proServ) {
-		this.proServ = proServ;
+	public AgendamentoController (AgendamentoService agServ) {
+		this.agServ = agServ;
 	}
 	
 	
@@ -35,9 +35,9 @@ public class ProfissionalController {
 	
 	// Novo registro
 	@PostMapping("/novo")
-	public ResponseEntity<String> registarProfissional(@Valid @RequestBody Profissional profissional){
+	public ResponseEntity<String> registarAgendamento(@Valid @RequestBody Agendamento agendamento){
 		try {
-			String resposta = this.proServ.registrarProfissional(profissional);
+			String resposta = this.agServ.registrarAgendamento(agendamento);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -47,11 +47,11 @@ public class ProfissionalController {
 	}
 	
 	
-	// Editar Profissional
+	// Editar Agendamento
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<String> editarProfissional(@PathVariable long id, @Valid @RequestBody Profissional profissional){
+	public ResponseEntity<String> editarAgendamento(@PathVariable long id, @Valid @RequestBody Agendamento agendamento){
 		try {
-			String resposta = this.proServ.editarProfissional(id, profissional);
+			String resposta = this.agServ.editarAgendamento(id, agendamento);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -60,11 +60,11 @@ public class ProfissionalController {
 		}
 	}
 	
-	// Deletar Profissional
+	// Deletar Agendamento
 	@DeleteMapping("/remover/{id}")
-	public ResponseEntity<String> deletarProfissional(@PathVariable long id){
+	public ResponseEntity<String> deletarAgendamento(@PathVariable long id){
 		try {
-			String resposta = this.proServ.deletarProfissional(id);
+			String resposta = this.agServ.deletarAgendamento(id);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -72,30 +72,32 @@ public class ProfissionalController {
 		}
 	}
 	
-	// Buscar Profissional
+	// Buscar Agendamento
 	@GetMapping("/busca/{id}")
-	public ResponseEntity<Profissional> buscaProfissional(@PathVariable long id){
+	public ResponseEntity<Agendamento> buscaAgendamento(@PathVariable long id){
 		try {
-			Profissional resposta = this.proServ.buscaProfissionalId(id);
-			return new ResponseEntity<Profissional>(resposta, HttpStatus.OK);
+			Agendamento resposta = this.agServ.buscaAgendamentoId(id);
+			return new ResponseEntity<Agendamento>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Profissional resposta = null;
-			return new ResponseEntity<Profissional>(resposta, HttpStatus.BAD_REQUEST);
+			Agendamento resposta = null;
+			return new ResponseEntity<Agendamento>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// Busca todos os Profissional
+	// Busca todos os Agendamento
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Profissional>> buscaPaciente(){
+	public ResponseEntity<List<Agendamento>> buscaAgendamento(){
 		try {
-			List<Profissional> resposta = this.proServ.buscaProfissionalTodos();
-			return new ResponseEntity<List<Profissional>>(resposta, HttpStatus.OK);
+			List<Agendamento> resposta = this.agServ.buscaAgendamentoTodos();
+			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			List<Profissional> resposta = null;
-			return new ResponseEntity<List<Profissional>>(resposta, HttpStatus.BAD_REQUEST);
+			List<Agendamento> resposta = null;
+			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
+
+
 }
