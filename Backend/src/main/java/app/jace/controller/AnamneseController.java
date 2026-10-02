@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.jace.entity.Agendamento;
-import app.jace.service.AgendamentoService;
+import app.jace.entity.Anamnese;
+import app.jace.service.AnamneseService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/agendamento")
+@RequestMapping("/api/anamnese")
 @CrossOrigin("*")
-public class AgendamentoController {
-
-	//INJEÇÂO DE DEPENDENCIA DO SERVICE
-	private AgendamentoService agServ;
+public class AnamneseController {
 	
-	public AgendamentoController (AgendamentoService agServ) {
-		this.agServ = agServ;
+	//INJEÇÂO DE DEPENDENCIA DO SERVICE
+	private AnamneseService anServ;
+	
+	public AnamneseController (AnamneseService anServ) {
+		this.anServ = anServ;
 	}
 	
 	
@@ -35,9 +35,9 @@ public class AgendamentoController {
 	
 	// Novo registro
 	@PostMapping("/novo")
-	public ResponseEntity<String> registarAgendamento(@Valid @RequestBody Agendamento agendamento){
+	public ResponseEntity<String> registarAnamnese(@Valid @RequestBody Anamnese anamnese){
 		try {
-			String resposta = this.agServ.registrarAgendamento(agendamento);
+			String resposta = this.anServ.registrarAnamnese(anamnese);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -47,11 +47,11 @@ public class AgendamentoController {
 	}
 	
 	
-	// Editar Agendamento
+	// Editar Anamnese
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<String> editarAgendamento(@PathVariable long id, @Valid @RequestBody Agendamento agendamento){
+	public ResponseEntity<String> editarAnamnese(@PathVariable long id, @Valid @RequestBody Anamnese anamnese){
 		try {
-			String resposta = this.agServ.editarAgendamento(id, agendamento);
+			String resposta = this.anServ.editarAnamnese(id, anamnese);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -62,9 +62,9 @@ public class AgendamentoController {
 	
 	// Deletar Agendamento
 	@DeleteMapping("/remover/{id}")
-	public ResponseEntity<String> deletarAgendamento(@PathVariable long id){
+	public ResponseEntity<String> deletarAnamnese(@PathVariable long id){
 		try {
-			String resposta = this.agServ.deletarAgendamento(id);
+			String resposta = this.anServ.deletarAnamnese(id);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -72,32 +72,31 @@ public class AgendamentoController {
 		}
 	}
 	
-	// Buscar Agendamento
+	// Buscar Anamnese
 	@GetMapping("/busca/{id}")
-	public ResponseEntity<Agendamento> buscaAgendamento(@PathVariable long id){
+	public ResponseEntity<Anamnese> buscaAnamnese(@PathVariable long id){
 		try {
-			Agendamento resposta = this.agServ.buscaAgendamentoId(id);
-			return new ResponseEntity<Agendamento>(resposta, HttpStatus.OK);
+			Anamnese resposta = this.anServ.buscaAnamneseId(id);
+			return new ResponseEntity<Anamnese>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Agendamento resposta = null;
-			return new ResponseEntity<Agendamento>(resposta, HttpStatus.BAD_REQUEST);
+			Anamnese resposta = null;
+			return new ResponseEntity<Anamnese>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// Busca todos os Agendamento
+	// Busca todos as Anamnese
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Agendamento>> buscaAgendamentos(){
+	public ResponseEntity<List<Anamnese>> buscaAnamneses(){
 		try {
-			List<Agendamento> resposta = this.agServ.buscaAgendamentoTodos();
-			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.OK);
+			List<Anamnese> resposta = this.anServ.buscaAnamneseTodas();
+			return new ResponseEntity<List<Anamnese>>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			List<Agendamento> resposta = null;
-			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.BAD_REQUEST);
+			List<Anamnese> resposta = null;
+			return new ResponseEntity<List<Anamnese>>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-
 
 }

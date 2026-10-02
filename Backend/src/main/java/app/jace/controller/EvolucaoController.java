@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.jace.entity.Agendamento;
-import app.jace.service.AgendamentoService;
+import app.jace.entity.Evolucao;
+import app.jace.service.EvolucaoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/agendamento")
+@RequestMapping("/api/evolucao")
 @CrossOrigin("*")
-public class AgendamentoController {
-
-	//INJEÇÂO DE DEPENDENCIA DO SERVICE
-	private AgendamentoService agServ;
+public class EvolucaoController {
 	
-	public AgendamentoController (AgendamentoService agServ) {
-		this.agServ = agServ;
+	//INJEÇÂO DE DEPENDENCIA DO SERVICE
+	private EvolucaoService evServ;
+	
+	public EvolucaoController (EvolucaoService evServ) {
+		this.evServ = evServ;
 	}
 	
 	
@@ -35,9 +35,9 @@ public class AgendamentoController {
 	
 	// Novo registro
 	@PostMapping("/novo")
-	public ResponseEntity<String> registarAgendamento(@Valid @RequestBody Agendamento agendamento){
+	public ResponseEntity<String> registarEvolucao(@Valid @RequestBody Evolucao evolucao){
 		try {
-			String resposta = this.agServ.registrarAgendamento(agendamento);
+			String resposta = this.evServ.registrarEvolucao(evolucao);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -47,11 +47,11 @@ public class AgendamentoController {
 	}
 	
 	
-	// Editar Agendamento
+	// Editar Evolucao
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<String> editarAgendamento(@PathVariable long id, @Valid @RequestBody Agendamento agendamento){
+	public ResponseEntity<String> editarEvolucao(@PathVariable long id, @Valid @RequestBody Evolucao evolucao){
 		try {
-			String resposta = this.agServ.editarAgendamento(id, agendamento);
+			String resposta = this.evServ.editarEvolucao(id, evolucao);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -60,11 +60,11 @@ public class AgendamentoController {
 		}
 	}
 	
-	// Deletar Agendamento
+	// Deletar Evolucao
 	@DeleteMapping("/remover/{id}")
-	public ResponseEntity<String> deletarAgendamento(@PathVariable long id){
+	public ResponseEntity<String> deletarEvolucao(@PathVariable long id){
 		try {
-			String resposta = this.agServ.deletarAgendamento(id);
+			String resposta = this.evServ.deletarEvolucao(id);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -72,32 +72,31 @@ public class AgendamentoController {
 		}
 	}
 	
-	// Buscar Agendamento
+	// Buscar Evolucao
 	@GetMapping("/busca/{id}")
-	public ResponseEntity<Agendamento> buscaAgendamento(@PathVariable long id){
+	public ResponseEntity<Evolucao> buscaEvolucao(@PathVariable long id){
 		try {
-			Agendamento resposta = this.agServ.buscaAgendamentoId(id);
-			return new ResponseEntity<Agendamento>(resposta, HttpStatus.OK);
+			Evolucao resposta = this.evServ.buscaEvolucaoId(id);
+			return new ResponseEntity<Evolucao>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Agendamento resposta = null;
-			return new ResponseEntity<Agendamento>(resposta, HttpStatus.BAD_REQUEST);
+			Evolucao resposta = null;
+			return new ResponseEntity<Evolucao>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// Busca todos os Agendamento
+	// Busca todos as Evolucoes
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Agendamento>> buscaAgendamentos(){
+	public ResponseEntity<List<Evolucao>> buscaEvolucoes(){
 		try {
-			List<Agendamento> resposta = this.agServ.buscaAgendamentoTodos();
-			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.OK);
+			List<Evolucao> resposta = this.evServ.buscaEvolucaoTodas();
+			return new ResponseEntity<List<Evolucao>>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			List<Agendamento> resposta = null;
-			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.BAD_REQUEST);
+			List<Evolucao> resposta = null;
+			return new ResponseEntity<List<Evolucao>>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-
 
 }

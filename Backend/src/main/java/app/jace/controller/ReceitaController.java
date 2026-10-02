@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.jace.entity.Agendamento;
-import app.jace.service.AgendamentoService;
+import app.jace.entity.Receita;
+import app.jace.service.ReceitaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/agendamento")
+@RequestMapping("/api/receita")
 @CrossOrigin("*")
-public class AgendamentoController {
-
-	//INJEÇÂO DE DEPENDENCIA DO SERVICE
-	private AgendamentoService agServ;
+public class ReceitaController {
 	
-	public AgendamentoController (AgendamentoService agServ) {
-		this.agServ = agServ;
+	//INJEÇÂO DE DEPENDENCIA DO SERVICE
+	private ReceitaService recServ;
+	
+	public ReceitaController (ReceitaService recServ) {
+		this.recServ = recServ;
 	}
 	
 	
@@ -35,9 +35,9 @@ public class AgendamentoController {
 	
 	// Novo registro
 	@PostMapping("/novo")
-	public ResponseEntity<String> registarAgendamento(@Valid @RequestBody Agendamento agendamento){
+	public ResponseEntity<String> registarReceita(@Valid @RequestBody Receita receita){
 		try {
-			String resposta = this.agServ.registrarAgendamento(agendamento);
+			String resposta = this.recServ.registrarReceita(receita);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -47,11 +47,11 @@ public class AgendamentoController {
 	}
 	
 	
-	// Editar Agendamento
+	// Editar Receita
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<String> editarAgendamento(@PathVariable long id, @Valid @RequestBody Agendamento agendamento){
+	public ResponseEntity<String> editarReceita(@PathVariable long id, @Valid @RequestBody Receita receita){
 		try {
-			String resposta = this.agServ.editarAgendamento(id, agendamento);
+			String resposta = this.recServ.editarReceita(id, receita);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -60,11 +60,11 @@ public class AgendamentoController {
 		}
 	}
 	
-	// Deletar Agendamento
+	// Deletar Receita
 	@DeleteMapping("/remover/{id}")
-	public ResponseEntity<String> deletarAgendamento(@PathVariable long id){
+	public ResponseEntity<String> deletarReceita(@PathVariable long id){
 		try {
-			String resposta = this.agServ.deletarAgendamento(id);
+			String resposta = this.recServ.deletarReceita(id);
 			return new ResponseEntity<String>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -72,32 +72,30 @@ public class AgendamentoController {
 		}
 	}
 	
-	// Buscar Agendamento
+	// Buscar Receita
 	@GetMapping("/busca/{id}")
-	public ResponseEntity<Agendamento> buscaAgendamento(@PathVariable long id){
+	public ResponseEntity<Receita> buscaReceita(@PathVariable long id){
 		try {
-			Agendamento resposta = this.agServ.buscaAgendamentoId(id);
-			return new ResponseEntity<Agendamento>(resposta, HttpStatus.OK);
+			Receita resposta = this.recServ.buscaReceitaId(id);
+			return new ResponseEntity<Receita>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Agendamento resposta = null;
-			return new ResponseEntity<Agendamento>(resposta, HttpStatus.BAD_REQUEST);
+			Receita resposta = null;
+			return new ResponseEntity<Receita>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// Busca todos os Agendamento
+	// Busca todas as Receitas
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Agendamento>> buscaAgendamentos(){
+	public ResponseEntity<List<Receita>> buscaReceitas(){
 		try {
-			List<Agendamento> resposta = this.agServ.buscaAgendamentoTodos();
-			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.OK);
+			List<Receita> resposta = this.recServ.buscaReceitaTodas();
+			return new ResponseEntity<List<Receita>>(resposta, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			List<Agendamento> resposta = null;
-			return new ResponseEntity<List<Agendamento>>(resposta, HttpStatus.BAD_REQUEST);
+			List<Receita> resposta = null;
+			return new ResponseEntity<List<Receita>>(resposta, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-
 
 }
