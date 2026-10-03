@@ -1,0 +1,41 @@
+<div class="container topo"></div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card">
+            <div class="card-body">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (paciente of pacientes(); track $index) {
+                            <tr>
+                                <td>{{paciente.nome}}</td>
+                                <td>{{paciente.cpf}}</td>
+                                <td>{{paciente.telefone}}</td>
+                                <td>
+                                    <span class="badge badge-success rounded-pill d-inline">{{paciente.status}}</span>
+                                </td>
+                                
+                                <td>
+                                    <button type="button" class="btn btn-link btn-sm btn-rounded">
+                                    Editar
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+
+</div>

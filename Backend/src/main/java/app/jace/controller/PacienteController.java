@@ -87,7 +87,7 @@ public class PacienteController {
 	
 	// Busca todos os pacientes
 	@GetMapping("/buscatodos")
-	public ResponseEntity<List<Paciente>> buscaPaciente(){
+	public ResponseEntity<List<Paciente>> buscaPacientes(){
 		try {
 			List<Paciente> resposta = this.pacServ.buscaPacienteTodos();
 			return new ResponseEntity<List<Paciente>>(resposta, HttpStatus.OK);

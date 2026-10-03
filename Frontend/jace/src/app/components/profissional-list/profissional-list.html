@@ -1,0 +1,55 @@
+<div class="container topo"></div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card">
+            <div class="card-body">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CRO</th>
+                            <th>Telefone</th>                            
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (profissional of profissionais(); track profissional.id) {
+                            <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                <img
+                                    src="https://banner2.cleanpng.com/20180603/jx/avomq8xby.webp"
+                                    alt=""
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                    <p class="fw-bold mb-1">{{profissional.nome}}</p>
+                                    <p class="text-muted mb-0">{{profissional.email}}</p>
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1">{{profissional.cro}}</p>
+                            </td>                            
+                            <td>{{profissional.telefone}}</td>
+                            <td>
+                                <span class="badge badge-success rounded-pill d-inline">{{profissional.status}}</span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-link btn-sm btn-rounded">
+                                Edit
+                                </button>
+                            </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+
+</div>

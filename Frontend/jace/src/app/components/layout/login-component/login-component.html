@@ -1,0 +1,31 @@
+<div class="container topo"></div>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <h3 class="centralizar" style="color: #264653;">Bem vindo!</h3>
+                    <p class="centralizar paragrafo">Acesse sua conta para continuar</p>
+
+                    <!-- Email input -->
+                    <mdb-form-control class="mb-4">
+                        <input mdbInput type="user" id="usuario" class="form-control" />
+                        <label mdbLabel class="form-label" for="usuario">Usuário</label>
+                    </mdb-form-control>
+
+                    <!-- Password input -->
+                    <mdb-form-control class="mb-4">
+                        <input mdbInput type="password" id="senha" class="form-control" />
+                        <label mdbLabel class="form-label" for="senha">Senha</label>
+                    </mdb-form-control>
+
+                                <!-- Submit button -->
+                    <button mdbRipple type="button" class="btn btn-primary btn-block" (click)="entrar()">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-4"></div>
+
+</div>

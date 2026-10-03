@@ -1,0 +1,17 @@
+app/
+|- Models/
+	|- Paciente
+	|- Profissional
+	
+|-Components
+	|- Layout/
+		|- menuComponent/
+		|- LoginComponent/
+		|- principalComponent/
+	|- Pacient/ (List e details)
+	|- Profissional/ (List e datails)
+
+|-Services
+	|- Paciente
+	|- Profissional
+ 
