@@ -17,4 +17,10 @@ export class PacienteService {
         return this.httpClient.get<Paciente[]>(this.API+"buscatodos");
     }
 
+    // Registra paciente
+    registaPacientes(paciente: Paciente): Observable<string>{
+        return this.httpClient.post<string>(this.API+"novo", paciente,{responseType: 'text' as 'json'});
+    }
+
+
 }

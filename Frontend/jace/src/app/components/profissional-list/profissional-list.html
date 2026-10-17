@@ -1,55 +1,88 @@
-<div class="container topo"></div>
-<div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <div class="card">
-            <div class="card-body">
-                <table class="table align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CRO</th>
-                            <th>Telefone</th>                            
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (profissional of profissionais(); track profissional.id) {
-                            <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                <img
-                                    src="https://banner2.cleanpng.com/20180603/jx/avomq8xby.webp"
-                                    alt=""
-                                    style="width: 45px; height: 45px"
-                                    class="rounded-circle"
-                                    />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">{{profissional.nome}}</p>
-                                    <p class="text-muted mb-0">{{profissional.email}}</p>
-                                </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="fw-normal mb-1">{{profissional.cro}}</p>
-                            </td>                            
-                            <td>{{profissional.telefone}}</td>
-                            <td>
-                                <span class="badge badge-success rounded-pill d-inline">{{profissional.status}}</span>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                Edit
-                                </button>
-                            </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-1"></div>
+<div class="pagina">
 
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div>
+      <h1 class="cabecalho__titulo">Profissionais</h1>
+      <p class="cabecalho__sub">{{ profissionais().length }} cadastrados</p>
+    </div>
+    <!-- Cadastrar novo profissional -->
+    <button type="button" class="botao botao--primario" routerLink="/app/profissional/novo">
+      Novo profissional
+    </button>
+  </header>
+
+  <section class="painel">
+
+    <!-- Filtros de busca -->
+    <div class="filtros">
+      <input type="search" class="campo filtros__busca"
+             placeholder="Buscar por nome, CRO ou e-mail"
+             aria-label="Buscar profissional" />
+      <select class="campo filtros__status" aria-label="Filtrar por status">
+        <option value="">Todos os status</option>
+        <option value="ativo">Ativo</option>
+        <option value="inativo">Inativo</option>
+      </select>
+    </div>
+
+    <!-- Tabela -->
+    <div class="tabela-rolagem">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CRO</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th class="tabela__acoes">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (profissional of profissionais(); track profissional.id) {
+            <tr>
+              <td>
+                <div class="pessoa">
+                  <span class="avatar">{{ profissional.nome.charAt(0) }}</span>
+                  <div class="pessoa__texto">
+                    <span class="pessoa__nome">{{ profissional.nome }}</span>
+                    <span class="pessoa__email">{{ profissional.email }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ profissional.cro }}</td>
+              <td>{{ profissional.telefone }}</td>
+              <td>
+                <span class="status status--{{ profissional.status?.toLowerCase() }}">{{ profissional.status }}</span>
+              </td>
+              <td class="tabela__acoes">
+                <!-- Botão Editar -->
+                <button type="button" class="botao botao--texto">
+                  Editar
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5">
+                <div class="vazio">
+                  <p class="vazio__titulo">Nenhum profissional cadastrado</p>
+                  <p class="vazio__texto">Cadastre o primeiro profissional para começar.</p>
+                  <button type="button" class="botao botao--primario" routerLink="/app/profissional/novo">
+                    Novo profissional
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Rodapé/paginação -->
+    <footer class="rodape">
+      Total: {{ profissionais().length }} profissionais
+    </footer>
+
+  </section>
 </div>

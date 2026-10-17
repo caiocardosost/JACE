@@ -1,0 +1,84 @@
+<div class="pagina">
+
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div>
+      <h1 class="cabecalho__titulo">Procedimentos</h1>
+      <p class="cabecalho__sub">{{ procedimentos().length }} cadastrados</p>
+    </div>
+    <!-- Adicionar novo procedimento-->
+    <button type="button" class="botao botao--primario" routerLink="/app/procedimento/novo">
+      Novo procedimento
+    </button>
+  </header>
+
+  <section class="painel">
+
+    <!-- Filtros de busca -->
+    <div class="filtros">
+      <input type="search" class="campo filtros__busca"
+             placeholder="Buscar por nome ou descrição"
+             aria-label="Buscar procedimento" />
+      <select class="campo filtros__status" aria-label="Filtrar por status">
+        <option value="">Todos os status</option>
+        <option value="ativo">Ativo</option>
+        <option value="inativo">Inativo</option>
+      </select>
+    </div>
+
+    <!-- Tabela -->
+    <div class="tabela-rolagem">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th class="tabela__numero">Duração</th>
+            <th class="tabela__numero">Preço base</th>
+            <th>Status</th>
+            <th class="tabela__acoes">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (procedimento of procedimentos(); track $index) {
+            <tr>
+              <td class="tabela__nome">{{ procedimento.nome }}</td>
+              <td>
+                <span class="descricao" [title]="procedimento.descricao">{{ procedimento.descricao }}</span>
+              </td>
+              <td class="tabela__numero">{{ procedimento.duracaoEmMinutos }} min</td>
+              <td class="tabela__numero">R$ {{ procedimento.precoBase | number:'1.2-2' }}</td>
+              <td>
+                <span class="status status--{{ procedimento.status?.toLowerCase() }}">{{ procedimento.status }}</span>
+              </td>
+              <td class="tabela__acoes">
+                <!-- Editar procedimento -->
+                <button type="button" class="botao botao--texto">
+                  Editar
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6">
+                <div class="vazio">
+                  <p class="vazio__titulo">Nenhum procedimento cadastrado</p>
+                  <p class="vazio__texto">Cadastre o primeiro procedimento para começar.</p>
+                  <button type="button" class="botao botao--primario" routerLink="/app/procedimento/novo">
+                    Novo procedimento
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Rodapé/paginação -->
+    <footer class="rodape">
+      Total: {{ procedimentos().length }} procedimentos
+    </footer>
+
+  </section>
+</div>

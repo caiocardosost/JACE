@@ -1,9 +1,19 @@
 @use 'mdb-angular-ui-kit/assets/scss/mdb';
 
-.centralizar{
-    text-align: center;
+/* ===== Estilos globais ===== */
 
+:root {
+  --marca: #2a9d8f;
+  --marca-escura: #1f7a6f;
+  --fundo: #f4f6f7;
+  --superficie: #ffffff;
+  --borda: #e1e6e8;
+  --texto: #1f2a30;
+  --texto-suave: #66737a;
 }
-body{
-    background-color: #e2ac16;
+
+/* Fundo cinza e cor de texto padrão em todas as telas */
+body {
+  background: var(--fundo);
+  color: var(--texto);
 }

@@ -1,18 +1,27 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  imports: [MdbFormsModule],
+  imports: [FormsModule],
   selector: 'app-login-component',
   styleUrl: './login-component.scss',
   templateUrl: './login-component.html',
 })
 export class LoginComponent {
+  private router = inject(Router);
 
-  router = inject(Router)
-  entrar(){
-    this.router.navigate(["app/paciente"]);
+  // Marca exibida na tela. Para vender a clientes, basta trocar aqui
+  // (ou, no futuro, carregar de uma configuração).
+  marca = {
+    nome: 'Jace',
+    slogan: 'Motor de Gestão da Jornada Clínica',
+  };
 
+  mostrarSenha = signal(false);
+
+  entrar() {
+    // TODO: trocar por autenticação real quando existir
+    this.router.navigate(['app/pacientes']);
   }
 }

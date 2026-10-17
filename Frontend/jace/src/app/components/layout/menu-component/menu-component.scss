@@ -1,11 +1,197 @@
-.bg-primary {
-  background-color: #2A9D8F !important;
+.menu {
+  background: var(--marca-escura);
+  color: #fff;
 }
 
-.btn-primary {
-  background-color: #2A9D8F !important;
+.menu__barra {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
 }
 
-.btn-primary:hover {
-  background-color: #23877D !important;
+// ---------- Clínica ----------
+.menu__clinica {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #fff;
+  text-decoration: none;
+  &:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 6px; }
+}
+.menu__logo {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: 700;
+}
+.menu__clinica-nome { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; }
+
+// ---------- Links e busca ----------
+.menu__colapsavel {
+  display: none; // no mobile só aparece quando aberto
+  align-items: center;
+  gap: 1rem;
+  &--aberto { display: flex; }
+}
+
+.menu__links {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__link {
+  display: block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+  &:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+
+  &--ativo { background: rgba(255, 255, 255, 0.2); color: #fff; font-weight: 600; }
+
+  &--desativado {
+    opacity: 0.5;
+    cursor: not-allowed;
+    &:hover { background: transparent; color: rgba(255, 255, 255, 0.85); }
+  }
+}
+
+.menu__busca {
+  width: 220px;
+  height: 36px;
+  padding: 0 0.8rem;
+  font-size: 0.9rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid transparent;
+  border-radius: 6px;
+
+  &::placeholder { color: rgba(255, 255, 255, 0.75); }
+  &:focus { outline: none; background: #fff; color: var(--texto); }
+  &:focus::placeholder { color: var(--texto-suave); }
+}
+
+// ---------- Usuário ----------
+.menu__usuario { position: relative; }
+
+.menu__usuario-botao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  &:hover { background: rgba(255, 255, 255, 0.12); }
+  &:focus-visible { outline: 2px solid #fff; }
+}
+.menu__avatar {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--marca-escura);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.menu__usuario-nome { font-size: 0.9rem; }
+
+.menu__dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 1000;
+  min-width: 220px;
+  padding: 0.35rem 0;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.menu__dropdown-topo {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 1rem 0.7rem;
+  border-bottom: 1px solid var(--borda);
+  margin-bottom: 0.35rem;
+  span { font-size: 0.82rem; color: var(--texto-suave); }
+}
+.menu__dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.92rem;
+  text-align: left;
+  color: var(--texto);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover:not(:disabled) { background: #f4f6f7; }
+  &:focus-visible { outline: 2px solid var(--marca); outline-offset: -2px; }
+  &:disabled { color: var(--texto-suave); opacity: 0.6; cursor: not-allowed; }
+}
+
+// ---------- Botão ☰ (mobile) ----------
+.menu__toggle {
+  display: flex;
+  padding: 0.3rem;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  &:hover { background: rgba(255, 255, 255, 0.12); }
+  &:focus-visible { outline: 2px solid #fff; }
+}
+
+// ---------- Mobile (abaixo de 992px) ----------
+@media (max-width: 991px) {
+  .menu__usuario { margin-left: auto; }
+
+  .menu__colapsavel {
+    order: 5;
+    flex: 0 0 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .menu__links { flex-direction: column; }
+  .menu__busca { width: 100%; }
+}
+
+@media (max-width: 575px) {
+  .menu__usuario-nome { display: none; }
+}
+
+// ---------- Desktop (992px ou mais) ----------
+@media (min-width: 992px) {
+  .menu__toggle { display: none; }
+
+  .menu__colapsavel {
+    display: flex;
+    flex: 1;
+  }
+  .menu__busca { margin-left: auto; }
 }

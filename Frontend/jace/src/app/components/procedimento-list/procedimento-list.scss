@@ -1,0 +1,159 @@
+// Centraliza o conteúdo
+.pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+// ---------- Cabeçalho ----------
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.cabecalho__titulo { font-size: 1.4rem; font-weight: 600; margin: 0; }
+.cabecalho__sub { margin: 0.15rem 0 0; font-size: 0.9rem; color: var(--texto-suave); }
+
+// ---------- Painel (cria o card) ----------
+.painel {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+// ---------- Filtros ----------
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--borda);
+}
+.filtros__busca { flex: 1 1 260px; }
+.filtros__status { flex: 0 0 200px; }
+
+.campo {
+  height: 38px;
+  padding: 0 0.75rem;
+  font-size: 0.92rem;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+
+  &:focus {
+    outline: none;
+    border-color: var(--marca);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+  }
+}
+
+// ---------- Botões ----------
+.botao {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:focus-visible { outline: 2px solid var(--marca); outline-offset: 2px; }
+
+  &--primario {
+    background: var(--marca);
+    color: #fff;
+    &:hover { background: var(--marca-escura); }
+  }
+  &--texto {
+    background: transparent;
+    color: var(--marca-escura);
+    padding: 0.35rem 0.6rem;
+    &:hover { background: #e8f4f2; }
+  }
+}
+
+// ---------- Tabela ----------
+.tabela-rolagem { overflow-x: auto; }
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: 0.8rem 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  td {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.92rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: #f8fafa; }
+}
+.tabela__acoes { text-align: right; white-space: nowrap; }
+.tabela__nome { font-weight: 500; }
+
+// Colunas numéricas alinhadas à direita
+.tabela__numero {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+// Descrição 
+.descricao {
+  display: block;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--texto-suave);
+}
+
+// ---------- Status ----------
+.status {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: #e9ecee;      // cor padrão (status desconhecido)
+  color: #55626a;
+
+  &--ativo        { background: #dff3ec; color: #1b6b50; }
+  &--inadimplente { background: #fbe0e0; color: #9b2c2c; }
+  &--inativo      { background: #e9ecee; color: #55626a; }
+}
+
+// ---------- Estado vazio ----------
+.vazio { padding: 2.5rem 1rem; text-align: center; }
+.vazio__titulo { font-weight: 600; margin: 0 0 0.25rem; }
+.vazio__texto { color: var(--texto-suave); margin: 0 0 1rem; }
+
+// ---------- Rodapé ----------
+.rodape {
+  padding: 0.8rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  border-top: 1px solid var(--borda);
+}
+
+// ---------- Mobile ----------
+@media (max-width: 575px) {
+  .cabecalho { flex-direction: column; align-items: flex-start; }
+  .filtros__status { flex: 1 1 100%; }
+}

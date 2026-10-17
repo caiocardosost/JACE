@@ -1,41 +1,87 @@
-<div class="container topo"></div>
-<div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
-        <div class="card">
-            <div class="card-body">
-                <table class="table align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (paciente of pacientes(); track $index) {
-                            <tr>
-                                <td>{{paciente.nome}}</td>
-                                <td>{{paciente.cpf}}</td>
-                                <td>{{paciente.telefone}}</td>
-                                <td>
-                                    <span class="badge badge-success rounded-pill d-inline">{{paciente.status}}</span>
-                                </td>
-                                
-                                <td>
-                                    <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                    Editar
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-1"></div>
+<div class="pagina">
 
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div>
+      <h1 class="cabecalho__titulo">Pacientes</h1>
+      <p class="cabecalho__sub">{{ pacientes().length }} cadastrados</p>
+    </div>
+    
+    <button type="button" class="botao botao--primario" routerLink="/app/paciente/novo">
+      Novo paciente
+    </button>
+  </header>
+
+  <section class="painel">
+
+    <!-- Filtros de busca -->
+    <div class="filtros">
+      <input type="search" class="campo filtros__busca"
+             placeholder="Buscar por nome, CPF ou telefone"
+             aria-label="Buscar paciente" />
+      <select class="campo filtros__status" aria-label="Filtrar por status">
+        <option value="">Todos os status</option>
+        <option value="ativo">Ativo</option>
+        <option value="em tratamento">Em tratamento</option>
+        <option value="inadimplente">Inadimplente</option>
+        <option value="inativo">Inativo</option>
+      </select>
+    </div>
+
+    <!-- Tabela / catalogo de pacientes -->
+    <div class="tabela-rolagem">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th class="tabela__acoes">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (paciente of pacientes(); track paciente.id) {
+            <tr>
+              <td>
+                <div class="pessoa">
+                  <span class="avatar">{{ paciente.nome.charAt(0) }}</span>
+                  <span class="pessoa__nome">{{ paciente.nome }}</span>
+                </div>
+              </td>
+              <td>{{ paciente.cpf }}</td>
+              <td>{{ paciente.telefone }}</td>
+              <td>
+                <span class="status status--{{ paciente.status?.toLowerCase() }}">{{ paciente.status }}</span>
+              </td>
+              <td class="tabela__acoes">
+                <button type="button" class="botao botao--texto"
+                        routerLink="/app/paciente/{{ paciente.id }}">
+                  Visualizar paciente
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5">
+                <div class="vazio">
+                  <p class="vazio__titulo">Nenhum paciente cadastrado</p>
+                  <p class="vazio__texto">Cadastre o primeiro paciente para começar.</p>
+                  <button type="button" class="botao botao--primario" routerLink="/app/paciente/novo">
+                    Novo paciente
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Rodapé da tabela (depois será paginação, ex: mostrando 10 pacientes de 20) -->
+    <footer class="rodape">
+      Total: {{ pacientes().length }} pacientes
+    </footer>
+
+  </section>
 </div>

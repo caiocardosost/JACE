@@ -1,0 +1,204 @@
+<div class="ficha">
+
+  <!-- Topo -->
+  <header class="ficha__topo">
+    <nav class="ficha__trilha" aria-label="Navegação">
+      <a href="#">Pacientes</a>
+      <span class="ficha__trilha-sep">/</span>
+      <span>Maria Aparecida Silva</span>
+    </nav>
+    <div class="ficha__acoes-topo">
+      <button type="button" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-print me-2"></i>Imprimir ficha
+      </button>
+      <button type="button" class="btn btn-primary btn-sm">
+        <i class="fas fa-pen me-2"></i>Editar cadastro
+      </button>
+    </div>
+  </header>
+
+  <div class="ficha__corpo">
+
+    <!-- ============ PAINEL LATERAL ============ -->
+    <aside class="perfil">
+
+      <div class="perfil__identidade">
+        <div class="avatar">MS</div>
+        <div>
+          <h1 class="perfil__nome">Maria Aparecida Silva</h1>
+          <p class="perfil__idade">34 anos</p>
+          <span class="status status--tratamento">Em tratamento</span>
+        </div>
+      </div>
+
+      <section class="perfil__bloco">
+        <h2 class="perfil__titulo">Contato</h2>
+        <dl class="perfil__lista">
+          <div>
+            <dt>Telefone</dt>
+            <dd><a href="tel:11987654321">(11) 98765-4321</a></dd>
+          </div>
+          <div>
+            <dt>E-mail</dt>
+            <dd><a href="mailto:maria.silva@email.com">maria.silva@email.com</a></dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="perfil__bloco">
+        <h2 class="perfil__titulo">Cadastro</h2>
+        <dl class="perfil__lista">
+          <div>
+            <dt>CPF</dt>
+            <dd>123.456.789-09</dd>
+          </div>
+          <div>
+            <dt>Nascimento</dt>
+            <dd>14/03/1992</dd>
+          </div>
+          <div>
+            <dt>Convênio</dt>
+            <dd>Odontoprev, plano Smile</dd>
+          </div>
+          <div>
+            <dt>Profissional responsável</dt>
+            <dd>Dra. Helena Costa</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="perfil__bloco">
+        <h2 class="perfil__titulo">Consultas</h2>
+        <dl class="perfil__lista">
+          <div>
+            <dt>Próxima</dt>
+            <dd>22/10/2026 às 14:30</dd>
+          </div>
+          <div>
+            <dt>Última</dt>
+            <dd>18/09/2026</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="perfil__botoes">
+        <button type="button" class="btn btn-primary btn-sm">Agendar consulta</button>
+        <button type="button" class="btn btn-outline-primary btn-sm">Novo atendimento</button>
+        <a class="btn btn-outline-success btn-sm" href="#" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp me-2"></i>WhatsApp
+        </a>
+      </div>
+    </aside>
+
+    <!-- ============ ÁREA PRINCIPAL ============ -->
+    <main class="principal">
+
+      <!-- Alertas clínicos -->
+      <section class="alertas" aria-label="Alertas clínicos">
+        <div class="alertas__item alertas__item--critico">
+          <i class="fas fa-triangle-exclamation"></i>
+          <span><strong>Alergias:</strong> penicilina, látex</span>
+        </div>
+        <div class="alertas__item alertas__item--atencao">
+          <i class="fas fa-heart-pulse"></i>
+          <span><strong>Condições:</strong> hipertensão</span>
+        </div>
+        <div class="alertas__item alertas__item--aviso">
+          <i class="fas fa-clipboard-question"></i>
+          <span><strong>Pendência:</strong> anamnese desatualizada</span>
+        </div>
+      </section>
+
+      <!-- Abas -->
+      <nav class="abas" aria-label="Seções da ficha">
+        <a class="abas__link abas__link--ativa" href="#">Visão geral</a>
+        <a class="abas__link" href="#">Prontuário</a>
+        <a class="abas__link" href="#">Plano de tratamento</a>
+        <a class="abas__link" href="#">Agenda</a>
+        <a class="abas__link" href="#">Financeiro</a>
+        <a class="abas__link" href="#">Documentos</a>
+      </nav>
+
+      <!-- Conteúdo da aba (<router-outlet> da aba) -->
+      <div class="principal__conteudo">
+
+        <div class="cartoes">
+
+          <!-- Próximos agendamentos -->
+          <section class="cartao">
+            <h3 class="cartao__titulo">Próximos agendamentos</h3>
+            <ul class="lista-simples">
+              <li>
+                <div>
+                  <strong>22/10/2026, 14:30</strong>
+                  <span class="texto-suave">Restauração do dente 26</span>
+                </div>
+                <span class="selo selo--ok">Confirmada</span>
+              </li>
+              <li>
+                <div>
+                  <strong>05/11/2026, 10:00</strong>
+                  <span class="texto-suave">Limpeza e profilaxia</span>
+                </div>
+                <span class="selo selo--pendente">Aguardando</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Tratamento em andamento Talvez seja removido-->
+          <section class="cartao">
+            <h3 class="cartao__titulo">Tratamento em andamento</h3>
+            <p class="cartao__destaque">Reabilitação do lado superior</p>
+            <div class="progresso" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="9">
+              <div class="progresso__barra" style="width: 44%"></div>
+            </div>
+            <p class="texto-suave mb-0">4 de 9 procedimentos concluídos</p>
+          </section>
+
+          <!-- Resumo financeiro -->
+          <section class="cartao">
+            <h3 class="cartao__titulo">Resumo financeiro</h3>
+            <dl class="resumo">
+              <div><dt>Total do plano</dt><dd>R$ 4.800,00</dd></div>
+              <div><dt>Pago</dt><dd>R$ 2.100,00</dd></div>
+              <div><dt>Em aberto</dt><dd class="resumo__aberto">R$ 2.700,00</dd></div>
+            </dl>
+          </section>
+
+          <!-- Últimas evoluções -->
+          <section class="cartao">
+            <h3 class="cartao__titulo">Últimas evoluções</h3>
+            <ul class="linha-tempo">
+              <li>
+                <span class="linha-tempo__data">18/09/2026</span>
+                <p>Dente 25: tratamento de canal concluído. Paciente sem queixas.</p>
+                <span class="texto-suave">Dra. Helena Costa</span>
+              </li>
+              <li>
+                <span class="linha-tempo__data">02/09/2026</span>
+                <p>Dente 25: abertura coronária e medicação intracanal.</p>
+                <span class="texto-suave">Dra. Helena Costa</span>
+              </li>
+              <li>
+                <span class="linha-tempo__data">14/08/2026</span>
+                <p>Avaliação inicial e radiografia panorâmica.</p>
+                <span class="texto-suave">Dr. Paulo Mendes</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Observações importantes -->
+          <section class="cartao cartao--largo">
+            <h3 class="cartao__titulo">Observações importantes</h3>
+            <p class="mb-0">
+              Paciente ansiosa em procedimentos longos. Prefere consultas pela manhã.
+              Usa anti-hipertensivo diariamente; aferir a pressão antes de anestesia com vasoconstritor.
+            </p>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>

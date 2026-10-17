@@ -1,41 +1,74 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <!-- Container wrapper -->
-  <div class="container-fluid">
-    <!-- Navbar brand -->
-    <a class="navbar-brand" href="#">Inicio</a>
+<nav class="menu" aria-label="Navegação principal">
+  <div class="menu__barra">
 
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="basicNavbar.toggle()"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
+    <!-- Clínica (por enquanto JACE; depois vem do usuário logado) -->
+    <a class="menu__clinica" routerLink="/app/pacientes" (click)="menuAberto.set(false)">
+      <span class="menu__logo" aria-hidden="true">{{ clinica().nome.charAt(0) }}</span>
+      <span class="menu__clinica-nome">{{ clinica().nome }}</span>
+    </a>
+
+    <!-- Links + busca (no mobile abre e fecha pelo botão ☰) -->
+    <div id="menu-principal" class="menu__colapsavel" [class.menu__colapsavel--aberto]="menuAberto()">
+      <ul class="menu__links">
+        @for (item of itens; track item.rota) {
+          <li>
+            @if (item.disponivel) {
+              <a class="menu__link" [routerLink]="item.rota" routerLinkActive="menu__link--ativo"
+                 (click)="menuAberto.set(false)">
+                {{ item.rotulo }}
+              </a>
+            } @else {
+              <span class="menu__link menu__link--desativado" title="Em breve" aria-disabled="true">
+                {{ item.rotulo }}
+              </span>
+            }
+          </li>
+        }
+      </ul>
+
+      <!-- Busca global (ainda sem lógica) -->
+      <input type="search" class="menu__busca" placeholder="Buscar paciente..."
+             aria-label="Buscar paciente" />
+    </div>
+
+    <!-- Usuário logado -->
+    <div class="menu__usuario">
+      <button type="button" class="menu__usuario-botao" aria-haspopup="menu"
+              [attr.aria-expanded]="menuUsuarioAberto()"
+              (click)="menuUsuarioAberto.set(!menuUsuarioAberto())">
+        <span class="menu__avatar" aria-hidden="true">{{ usuario().nome.charAt(0) }}</span>
+        <span class="menu__usuario-nome">{{ usuario().nome }}</span>
+      </button>
+
+      @if (menuUsuarioAberto()) {
+        <div class="menu__dropdown" role="menu">
+          <div class="menu__dropdown-topo">
+            <strong>{{ usuario().nome }}</strong>
+            <span>{{ usuario().perfil }}</span>
+          </div>
+          <!-- Tirar o "disabled" quando a tela existir -->
+          <button type="button" class="menu__dropdown-item" role="menuitem" disabled title="Em breve">
+            Meu perfil
+          </button>
+          <button type="button" class="menu__dropdown-item" role="menuitem" disabled title="Em breve">
+            Configurações
+          </button>
+          <button type="button" class="menu__dropdown-item" role="menuitem" (click)="sair()">
+            Sair
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Botão do menu no mobile -->
+    <button type="button" class="menu__toggle" aria-controls="menu-principal"
+            aria-label="Abrir ou fechar o menu" [attr.aria-expanded]="menuAberto()"
+            (click)="menuAberto.set(!menuAberto())">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
     </button>
 
-    <!-- Collapsible wrapper -->
-    <div
-      class="collapse navbar-collapse"
-      id="navbarSupportedContent"
-      mdbCollapse
-      #basicNavbar="mdbCollapse"
-    >
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="app/paciente">Paciente</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="app/profissional">Profissional</a>
-        </li>        
-      </ul>
-      <!-- Left links -->
-    </div>
-    <!-- Collapsible wrapper -->
   </div>
-  <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->

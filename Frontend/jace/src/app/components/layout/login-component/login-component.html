@@ -1,31 +1,46 @@
-<div class="container topo"></div>
-<div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        <div class="card">
-            <div class="card-body">
-                <form>
-                    <h3 class="centralizar" style="color: #264653;">Bem vindo!</h3>
-                    <p class="centralizar paragrafo">Acesse sua conta para continuar</p>
+<main class="login">
 
-                    <!-- Email input -->
-                    <mdb-form-control class="mb-4">
-                        <input mdbInput type="user" id="usuario" class="form-control" />
-                        <label mdbLabel class="form-label" for="usuario">Usuário</label>
-                    </mdb-form-control>
+  <!-- Lado da marca (no mobile vira uma faixa no topo) -->
+  <section class="login__marca">
+    <div class="login__logo" aria-hidden="true">{{ marca.nome.charAt(0) }}</div>
+    <p class="login__sistema">{{ marca.nome }}</p>
+    <p class="login__slogan">{{ marca.slogan }}</p>
+    <p class="login__descricao">
+      Pacientes, prontuários e agenda do consultório em um só lugar.
+    </p>
+  </section>
 
-                    <!-- Password input -->
-                    <mdb-form-control class="mb-4">
-                        <input mdbInput type="password" id="senha" class="form-control" />
-                        <label mdbLabel class="form-label" for="senha">Senha</label>
-                    </mdb-form-control>
+  <!-- Lado do formulário -->
+  <section class="login__area">
+    <form class="login__form" (ngSubmit)="entrar()">
 
-                                <!-- Submit button -->
-                    <button mdbRipple type="button" class="btn btn-primary btn-block" (click)="entrar()">Entrar</button>
-                </form>
-            </div>
+      <h1 class="login__titulo">Bem-vindo!</h1>
+      <p class="login__sub">Acesse sua conta para continuar.</p>
+
+      <div class="grupo">
+        <label class="rotulo" for="usuario">Usuário</label>
+        <input id="usuario" name="usuario" type="text" class="campo"
+               autocomplete="username" autofocus />
+      </div>
+
+      <div class="grupo">
+        <label class="rotulo" for="senha">Senha</label>
+        <div class="campo-senha">
+          <input id="senha" name="senha" class="campo campo--com-botao"
+                 autocomplete="current-password"
+                 [type]="mostrarSenha() ? 'text' : 'password'" />
+          <button type="button" class="campo-senha__botao"
+                  [attr.aria-label]="mostrarSenha() ? 'Ocultar senha' : 'Mostrar senha'"
+                  (click)="mostrarSenha.set(!mostrarSenha())">
+            {{ mostrarSenha() ? 'Ocultar' : 'Mostrar' }}
+          </button>
         </div>
-    </div>
-    <div class="col-4"></div>
+      </div>
 
-</div>
+      <button type="submit" class="botao botao--primario">Entrar</button>
+
+      <p class="login__rodape">Problemas para acessar? Fale com o administrador.</p>
+    </form>
+  </section>
+
+</main>

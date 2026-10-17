@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { PacienteService } from '../../services/paciente-service';
 import { Paciente } from '../../models/paciente';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-paciente-list',
   styleUrl: './paciente-list.scss',
   templateUrl: './paciente-list.html',
