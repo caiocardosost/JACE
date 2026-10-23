@@ -24,21 +24,52 @@ export class PacienteDetails {
     let index = this.router.snapshot.params['id'];
     if (index > 0 ){
       this.modoEdicao.set(true);
-      this.buscaPaciente();
+      this.buscaPaciente(index);
     }     
   }
 
-  buscaPaciente(){
+  buscaPaciente(index: number){
     this.carregando.set(true);
-    //TODO implementar a busca e atribuição de paciente
+    this.pacServ.buscaPacienteId(index).subscribe({
+      next: paciente =>{
+        this.paciente.set(paciente);
+        this.carregando.set(false);
+      },
+      error: erro => {
+        console.error(erro);
+      }
+    })
   }
 
   salvar(){
     this.salvando.set(true);
     this.erroServidor.set('');
+    if(this.modoEdicao()){
+      this.editaPac();
+    }
+    else {
+      this.registraPac()
+    }
+  }
+
+  registraPac(){
     this.pacServ.registaPacientes(this.paciente()).subscribe({
       next: resposta => {
-        alert("paciente registrado com sucesso!");
+        alert("Paciente cadastrado com sucesso!");
+        this.router2.navigate(["app/pacientes"]);
+      },
+      error: erro => {
+        console.error(erro);
+        this.salvando.set(false); // libera o botão para tentar de novo
+        this.erroServidor.set("Erro ao salvar. CPF duplicado ou erro no servidor");
+      }
+    })
+  }
+
+  editaPac(){
+    this.pacServ.editarPaciente(this.paciente().id, this.paciente()).subscribe({
+      next: resposta => {
+        alert("Paciente editado com sucesso!");
         this.router2.navigate(["app/pacientes"]);
       },
       error: erro => {
@@ -52,9 +83,4 @@ export class PacienteDetails {
   cancelar(){
     this.router2.navigate(["app/pacientes"]);
   }
-
-
-
-
-
 }

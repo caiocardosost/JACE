@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { PacienteService } from '../../services/paciente-service';
 import { Paciente } from '../../models/paciente';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   imports: [RouterLink],
@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 export class PacienteList {
   pacientes = signal<Paciente[]>([]);
   pacServ = inject(PacienteService);
+  router = inject(ActivatedRoute);
 
   constructor(){
     this.findAll();
@@ -22,6 +23,19 @@ export class PacienteList {
       next: listaPac =>{
         console.log("Resposta da API: ", listaPac);
         this.pacientes.set(listaPac);
+      },
+      error: erro => {
+        console.error(erro);
+      }
+    })
+
+  }
+
+  removerPaciente(index: number){
+    this.pacServ.removePacienteId(index).subscribe({
+      next: resultado =>{
+        alert("Removido com sucesso!");
+        this.findAll();
       },
       error: erro => {
         console.error(erro);

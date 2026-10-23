@@ -57,7 +57,15 @@
               <td class="tabela__acoes">
                 <button type="button" class="botao botao--texto"
                         routerLink="/app/paciente/{{ paciente.id }}">
-                  Visualizar paciente
+                  Visualizar
+                </button>
+                <button type="button" class="botao botao--texto"
+                        routerLink="/app/paciente/editar/{{ paciente.id }}">
+                  Editar
+                </button>
+                <button type="button" class="botao botao--texto"
+                        (click) = "removerPaciente(paciente.id)">
+                  remover
                 </button>
               </td>
             </tr>

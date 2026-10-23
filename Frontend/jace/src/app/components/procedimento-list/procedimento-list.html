@@ -53,8 +53,17 @@
               </td>
               <td class="tabela__acoes">
                 <!-- Editar procedimento -->
-                <button type="button" class="botao botao--texto">
+                <button type="button" class="botao botao--texto"
+                        routerLink="/">
+                  Visualizar
+                </button>
+                <button type="button" class="botao botao--texto"
+                        routerLink="/app/procedimento/editar/{{ procedimento.id }}">
                   Editar
+                </button>
+                <button type="button" class="botao botao--texto"
+                        (click) = "removerProcedimento(procedimento.id)">
+                  Remover
                 </button>
               </td>
             </tr>

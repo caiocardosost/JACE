@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { Profissional } from '../../models/profissional';
 import { ProfissionalService } from '../../services/profissional-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-profissional-list',
   styleUrl: './profissional-list.scss',
   templateUrl: './profissional-list.html',
@@ -21,6 +22,19 @@ export class ProfissionalList {
       next: listaPro =>{
         console.log("Resposta da API: ", listaPro);
         this.profissionais.set(listaPro);
+      },
+      error: erro => {
+        console.error(erro);
+      }
+    })
+
+  }
+
+  removerProfissional(index: number){
+    this.proServ.removeProfissionalId(index).subscribe({
+      next: resultado =>{
+        alert("Removido com sucesso!");
+        this.findAll();
       },
       error: erro => {
         console.error(erro);

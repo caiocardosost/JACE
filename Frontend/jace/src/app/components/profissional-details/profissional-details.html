@@ -1,1 +1,129 @@
-<p>profissional-details works!</p>
+<!--
+  Espera no componente (.ts), igual ao paciente-details:
+    profissional  signal com: nome, cpf, cro, telefone, email, status
+    modoEdicao, carregando, salvando  signals de boolean
+    erroServidor  signal de string
+    salvar() e cancelar()
+  Requer FormsModule nos imports do componente.
+-->
+<div class="pagina">
+
+  <header class="cabecalho">
+    <h1 class="cabecalho__titulo">{{ modoEdicao() ? 'Editar profissional' : 'Novo profissional' }}</h1>
+    <p class="cabecalho__sub">
+      {{ modoEdicao() ? 'Altere os dados e salve.' : 'Preencha os dados para cadastrar.' }}
+    </p>
+  </header>
+
+  @if (carregando()) {
+    <section class="painel">
+      <p class="estado">Carregando dados do profissional...</p>
+    </section>
+  } @else {
+
+    <form #form="ngForm" (ngSubmit)="form.valid && salvar()" novalidate>
+      <section class="painel">
+
+        @if (erroServidor()) {
+          <div class="aviso aviso--erro" role="alert">{{ erroServidor() }}</div>
+        }
+
+        <!-- Identificação -->
+        <div class="secao">
+          <h2 class="secao__titulo">Identificação</h2>
+          <div class="grade">
+
+            <div class="grupo grupo--cheio">
+              <label class="rotulo rotulo--obrigatorio" for="nome">Nome completo</label>
+              <input id="nome" name="nome" type="text" class="campo" autocomplete="off"
+                     [class.campo--erro]="nome.invalid && (nome.touched || form.submitted)"
+                     [(ngModel)]="profissional().nome" #nome="ngModel" required />
+              @if (nome.invalid && (nome.touched || form.submitted)) {
+                <p class="erro">O nome é obrigatório.</p>
+              }
+            </div>
+
+            <div class="grupo">
+              <label class="rotulo rotulo--obrigatorio" for="cpf">CPF</label>
+              <input id="cpf" name="cpf" type="text" class="campo" inputmode="numeric"
+                     maxlength="14" placeholder="000.000.000-00" autocomplete="off"
+                     [class.campo--erro]="cpf.invalid && (cpf.touched || form.submitted)"
+                     [(ngModel)]="profissional().cpf" #cpf="ngModel" required />
+              @if (cpf.invalid && (cpf.touched || form.submitted)) {
+                <p class="erro">Informe o CPF.</p>
+              }
+            </div>
+
+            <div class="grupo">
+              <label class="rotulo rotulo--obrigatorio" for="cro">CRO</label>
+              <input id="cro" name="cro" type="text" class="campo" autocomplete="off"
+                     placeholder="Ex.: SP-12345"
+                     [class.campo--erro]="cro.invalid && (cro.touched || form.submitted)"
+                     [(ngModel)]="profissional().cro" #cro="ngModel" required />
+              @if (cro.invalid && (cro.touched || form.submitted)) {
+                <p class="erro">Informe o CRO.</p>
+              }
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Contato -->
+        <div class="secao">
+          <h2 class="secao__titulo">Contato</h2>
+          <div class="grade">
+
+            <div class="grupo">
+              <label class="rotulo rotulo--obrigatorio" for="telefone">Telefone</label>
+              <input id="telefone" name="telefone" type="tel" class="campo" inputmode="tel"
+                     maxlength="15" placeholder="(11) 90000-0000" autocomplete="off"
+                     [class.campo--erro]="telefone.invalid && (telefone.touched || form.submitted)"
+                     [(ngModel)]="profissional().telefone" #telefone="ngModel" required />
+              @if (telefone.invalid && (telefone.touched || form.submitted)) {
+                <p class="erro">Informe o telefone.</p>
+              }
+            </div>
+
+            <div class="grupo">
+              <label class="rotulo" for="email">E-mail <span class="rotulo__opcional">(opcional)</span></label>
+              <input id="email" name="email" type="email" class="campo" autocomplete="off"
+                     [class.campo--erro]="email.invalid && (email.touched || form.submitted)"
+                     [(ngModel)]="profissional().email" #email="ngModel" email />
+              @if (email.invalid && (email.touched || form.submitted)) {
+                <p class="erro">Informe um e-mail válido.</p>
+              }
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Situação -->
+        <div class="secao">
+          <h2 class="secao__titulo">Situação</h2>
+          <div class="grade">
+
+            <div class="grupo">
+              <label class="rotulo" for="status">Status</label>
+              <select id="status" name="status" class="campo" [(ngModel)]="profissional().status">
+                <option value="ATIVO">Ativo</option>
+                <option value="INATIVO">Inativo</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Ações -->
+        <div class="acoes">
+          <button type="button" class="botao botao--secundario" (click)="cancelar()" [disabled]="salvando()">
+            Cancelar
+          </button>
+          <button type="submit" class="botao botao--primario" [disabled]="salvando()">
+            {{ salvando() ? 'Salvando...' : (modoEdicao() ? 'Salvar alterações' : 'Cadastrar profissional') }}
+          </button>
+        </div>
+
+      </section>
+    </form>
+  }
+</div>

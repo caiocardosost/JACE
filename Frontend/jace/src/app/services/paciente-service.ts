@@ -17,6 +17,21 @@ export class PacienteService {
         return this.httpClient.get<Paciente[]>(this.API+"buscatodos");
     }
 
+    // busca por id
+    buscaPacienteId(index: number): Observable<Paciente>{
+        return this.httpClient.get<Paciente>(this.API+"busca/"+index);
+    }
+
+    // remover por id
+    removePacienteId(index: number): Observable<string>{
+        return this.httpClient.delete<string>(this.API+"remover/"+index, {responseType: 'text' as 'json'});
+    }
+
+    // editar paciente id
+    editarPaciente(index: number, paciente: Paciente): Observable<string>{
+        return this.httpClient.put<string>(this.API+"editar/"+index, paciente, {responseType: 'text' as 'json'});
+    }
+
     // Registra paciente
     registaPacientes(paciente: Paciente): Observable<string>{
         return this.httpClient.post<string>(this.API+"novo", paciente,{responseType: 'text' as 'json'});
