@@ -7,4 +7,5 @@ export class Paciente {
     email!:string;
     endereco!:string;
     status!:string;
+    idade!:number;
 }

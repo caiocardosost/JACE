@@ -1,5 +1,6 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { IniciaisPipe } from '../../../shared/iniciais-pipe';
 
 interface ItemMenu {
   rotulo: string;
@@ -8,7 +9,7 @@ interface ItemMenu {
 }
 
 @Component({
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, IniciaisPipe],
   selector: 'app-menu-component',
   styleUrl: './menu-component.scss',
   templateUrl: './menu-component.html',

@@ -2,9 +2,10 @@ import { Component, inject, signal } from '@angular/core';
 import { PacienteService } from '../../services/paciente-service';
 import { Paciente } from '../../models/paciente';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { IniciaisPipe } from '../../shared/iniciais-pipe';
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, IniciaisPipe],
   selector: 'app-paciente-list',
   styleUrl: './paciente-list.scss',
   templateUrl: './paciente-list.html',
@@ -32,6 +33,8 @@ export class PacienteList {
   }
 
   removerPaciente(index: number){
+    if (!confirm('Remover este paciente? Essa ação não pode ser desfeita.')) return;
+
     this.pacServ.removePacienteId(index).subscribe({
       next: resultado =>{
         alert("Removido com sucesso!");

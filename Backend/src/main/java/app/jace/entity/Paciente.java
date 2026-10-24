@@ -1,7 +1,8 @@
 package app.jace.entity;
 
 import java.time.LocalDate;
-
+import java.time.Period;
+import java.time.ZoneId;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,5 +44,11 @@ public class Paciente {
 	
 	private String status = "ATIVO";
 	
+	
+	// Calculado a cada leitura. Não existe coluna "idade" no banco, mas propriedade 'idade' será gerado em tempo de execução.
+	public Integer getIdade() {
+		if (data_nascimento == null) return null;
+		return Period.between(data_nascimento, LocalDate.now(ZoneId.of("America/Sao_Paulo"))).getYears();
+	}
 		
 }

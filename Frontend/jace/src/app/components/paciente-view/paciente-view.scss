@@ -158,3 +158,67 @@
   p { margin: 0.1rem 0; font-size: 0.92rem; }
 }
 .linha-tempo__data { font-size: 0.8rem; font-weight: 600; color: var(--marca-escura); }
+
+
+// ---------- Carregando (esqueleto) ----------
+// Leitores de tela leem o texto; quem enxerga não vê
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.esqueleto {
+  display: block;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #e9eef0 25%, #f4f6f7 50%, #e9eef0 75%);
+  background-size: 200% 100%;
+  animation: esqueleto-brilho 1.4s ease-in-out infinite;
+
+  &--trilha { display: inline-block; width: 140px; vertical-align: middle; }
+  &--avatar { width: 64px; height: 64px; flex-shrink: 0; border-radius: 50%; }
+  &--titulo { height: 20px; width: 80%; }
+  &--rotulo { height: 12px; width: 30%; }
+  &--selo   { height: 22px; width: 90px; border-radius: 999px; }
+  &--aba    { height: 20px; width: 110px; margin: 0.75rem 1rem; }
+  &--curto  { width: 40%; }
+  &--medio  { width: 65%; }
+  &--longo  { width: 100%; }
+}
+
+.esqueleto-grupo {
+  display: grid;
+  gap: 0.7rem;
+  &--cheio { flex: 1; }
+}
+
+@keyframes esqueleto-brilho {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// Quem pediu menos movimento no sistema vê o esqueleto parado
+@media (prefers-reduced-motion: reduce) {
+  .esqueleto { animation: none; }
+}
+
+// ---------- Erro ao carregar ----------
+.estado-erro {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+.estado-erro__titulo { margin: 0 0 0.5rem; font-size: 1.2rem; font-weight: 600; }
+.estado-erro__texto { margin: 0 0 1.25rem; color: var(--texto-suave); }
+.estado-erro__acoes { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem; }

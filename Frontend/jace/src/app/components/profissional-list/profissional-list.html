@@ -6,7 +6,7 @@
       <h1 class="cabecalho__titulo">Profissionais</h1>
       <p class="cabecalho__sub">{{ profissionais().length }} cadastrados</p>
     </div>
-    <!-- Cadastrar novo profissional -->
+    <!-- Ajuste a rota para a do seu formulário de cadastro -->
     <button type="button" class="botao botao--primario" routerLink="/app/profissional/novo">
       Novo profissional
     </button>
@@ -14,7 +14,7 @@
 
   <section class="painel">
 
-    <!-- Filtros de busca -->
+    <!-- Filtros (ainda sem lógica: ligar depois a busca e ao status) -->
     <div class="filtros">
       <input type="search" class="campo filtros__busca"
              placeholder="Buscar por nome, CRO ou e-mail"
@@ -43,7 +43,7 @@
             <tr>
               <td>
                 <div class="pessoa">
-                  <span class="avatar">{{ profissional.nome.charAt(0) }}</span>
+                  <span class="avatar">{{ profissional.nome | iniciais }}</span>
                   <div class="pessoa__texto">
                     <span class="pessoa__nome">{{ profissional.nome }}</span>
                     <span class="pessoa__email">{{ profissional.email }}</span>
@@ -56,7 +56,6 @@
                 <span class="status status--{{ profissional.status?.toLowerCase() }}">{{ profissional.status }}</span>
               </td>
               <td class="tabela__acoes">
-                <!-- Ações -->
                 <button type="button" class="botao botao--texto"
                         routerLink="/">
                   Visualizar
@@ -67,7 +66,7 @@
                 </button>
                 <button type="button" class="botao botao--texto"
                         (click) = "removerProfissional(profissional.id)">
-                  Remover
+                  remover
                 </button>
               </td>
             </tr>
@@ -88,7 +87,7 @@
       </table>
     </div>
 
-    <!-- Rodapé/paginação -->
+    <!-- Rodapé (depois vira paginação) -->
     <footer class="rodape">
       Total: {{ profissionais().length }} profissionais
     </footer>

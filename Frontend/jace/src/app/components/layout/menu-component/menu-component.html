@@ -36,7 +36,7 @@
       <button type="button" class="menu__usuario-botao" aria-haspopup="menu"
               [attr.aria-expanded]="menuUsuarioAberto()"
               (click)="menuUsuarioAberto.set(!menuUsuarioAberto())">
-        <span class="menu__avatar" aria-hidden="true">{{ usuario().nome.charAt(0) }}</span>
+        <span class="menu__avatar" aria-hidden="true">{{ usuario().nome | iniciais }}</span>
         <span class="menu__usuario-nome">{{ usuario().nome }}</span>
       </button>
 
