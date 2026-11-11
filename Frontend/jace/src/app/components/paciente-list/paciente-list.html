@@ -21,10 +21,10 @@
              aria-label="Buscar paciente" />
       <select class="campo filtros__status" aria-label="Filtrar por status">
         <option value="">Todos os status</option>
-        <option value="ativo">Ativo</option>
-        <option value="em tratamento">Em tratamento</option>
-        <option value="inadimplente">Inadimplente</option>
-        <option value="inativo">Inativo</option>
+        <option value="ATIVO">Ativo</option>
+        <option value="EM_TRATAMENTO">Em tratamento</option>
+        <option value="INADIMPLENTE">Inadimplente</option>
+        <option value="INATIVO">Inativo</option>
       </select>
     </div>
 
@@ -49,10 +49,10 @@
                   <span class="pessoa__nome">{{ paciente.nome }}</span>
                 </div>
               </td>
-              <td>{{ paciente.cpf }}</td>
+              <td>{{ paciente.cpf | cpf }}</td>
               <td>{{ paciente.telefone }}</td>
               <td>
-                <span class="status status--{{ paciente.status?.toLowerCase() }}">{{ paciente.status }}</span>
+                <span class="status status--{{ paciente.status?.toLowerCase() }}">{{ paciente.status | rotulo }}</span>
               </td>
               <td class="tabela__acoes">
                 <button type="button" class="botao botao--texto"

@@ -1,9 +1,10 @@
 <!--
   Espera no componente (.ts), igual ao paciente-details:
-    profissional  signal com: nome, cpf, cro, telefone, email, status
+    profissional  signal com: nome, sexo, cpf, dataNascimento, cro, endereco, telefone, email, status
     modoEdicao, carregando, salvando  signals de boolean
     erroServidor  signal de string
     salvar() e cancelar()
+  No salvar(): enviar o CPF só com dígitos e o CRO em maiúsculas (ver instruções na conversa).
   Requer FormsModule nos imports do componente.
 -->
 <div class="pagina">
@@ -55,14 +56,40 @@
             </div>
 
             <div class="grupo">
+              <label class="rotulo rotulo--obrigatorio" for="nascimento">Data de nascimento</label>
+              <input id="nascimento" name="dataNascimento" type="date" class="campo"
+                     [class.campo--erro]="nascimento.invalid && (nascimento.touched || form.submitted)"
+                     [(ngModel)]="profissional().dataNascimento" #nascimento="ngModel" required />
+              @if (nascimento.invalid && (nascimento.touched || form.submitted)) {
+                <p class="erro">Informe a data de nascimento.</p>
+              }
+            </div>
+
+            <div class="grupo">
               <label class="rotulo rotulo--obrigatorio" for="cro">CRO</label>
               <input id="cro" name="cro" type="text" class="campo" autocomplete="off"
-                     placeholder="Ex.: SP-12345"
+                     placeholder="UF-número. Ex.: SP-123456"
+                     pattern="[A-Za-z]{2}-[0-9]+" style="text-transform: uppercase"
                      [class.campo--erro]="cro.invalid && (cro.touched || form.submitted)"
                      [(ngModel)]="profissional().cro" #cro="ngModel" required />
               @if (cro.invalid && (cro.touched || form.submitted)) {
-                <p class="erro">Informe o CRO.</p>
+                @if (cro.errors?.['required']) {
+                  <p class="erro">Informe o CRO.</p>
+                } @else {
+                  <p class="erro">Use o formato UF-número. Ex.: SP-123456.</p>
+                }
               }
+            </div>
+
+            <div class="grupo">
+              <label class="rotulo" for="sexo">Sexo <span class="rotulo__opcional">(opcional)</span></label>
+              <select id="sexo" name="sexo" class="campo" [(ngModel)]="profissional().sexo">
+                <option [ngValue]="null">Não informado</option>
+                <!-- Ajuste os valores para os do seu enum Sexo -->
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMININO">Feminino</option>
+                <option value="OUTRO">Outro</option>
+              </select>
             </div>
 
           </div>
@@ -97,6 +124,25 @@
           </div>
         </div>
 
+        <!-- Endereço -->
+        <div class="secao">
+          <h2 class="secao__titulo">Endereço</h2>
+          <div class="grade">
+
+            <div class="grupo grupo--cheio">
+              <label class="rotulo rotulo--obrigatorio" for="endereco">Endereço completo</label>
+              <input id="endereco" name="endereco" type="text" class="campo" autocomplete="off"
+                     placeholder="Rua, número, bairro, cidade"
+                     [class.campo--erro]="endereco.invalid && (endereco.touched || form.submitted)"
+                     [(ngModel)]="profissional().endereco" #endereco="ngModel" required />
+              @if (endereco.invalid && (endereco.touched || form.submitted)) {
+                <p class="erro">O endereço é obrigatório.</p>
+              }
+            </div>
+
+          </div>
+        </div>
+
         <!-- Situação -->
         <div class="secao">
           <h2 class="secao__titulo">Situação</h2>
@@ -105,6 +151,7 @@
             <div class="grupo">
               <label class="rotulo" for="status">Status</label>
               <select id="status" name="status" class="campo" [(ngModel)]="profissional().status">
+                <!-- Ajuste para os valores do seu enum StatusProfissional -->
                 <option value="ATIVO">Ativo</option>
                 <option value="INATIVO">Inativo</option>
               </select>

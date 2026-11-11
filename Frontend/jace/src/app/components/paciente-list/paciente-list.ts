@@ -3,9 +3,11 @@ import { PacienteService } from '../../services/paciente-service';
 import { Paciente } from '../../models/paciente';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { IniciaisPipe } from '../../shared/iniciais-pipe';
+import { CpfPipe } from '../../shared/cpf-pipe';
+import { RotuloPipe } from '../../shared/rotulo-pipe';
 
 @Component({
-  imports: [RouterLink, IniciaisPipe],
+  imports: [RouterLink, IniciaisPipe, CpfPipe, RotuloPipe],
   selector: 'app-paciente-list',
   styleUrl: './paciente-list.scss',
   templateUrl: './paciente-list.html',

@@ -98,6 +98,18 @@ public class AgendamentoController {
 		}
 	}
 	
+	//Cancelar agendamento
+	@PutMapping("/cancelar/{id}")
+	public ResponseEntity<String> cancelar(@PathVariable long id, @RequestBody String motivo){
+		try {
+			String resposta = this.agServ.cancelar(id, motivo);
+			return new ResponseEntity<String>(resposta, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Erro ao cancelar", HttpStatus.BAD_REQUEST);
 
+		}
+	}
+	
 
 }

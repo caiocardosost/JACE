@@ -104,7 +104,11 @@
   tbody tr:last-child td { border-bottom: 0; }
   tbody tr:hover { background: #f8fafa; }
 }
-.tabela__acoes { text-align: right; white-space: nowrap; }
+.tabela th.tabela__acoes,
+.tabela td.tabela__acoes {
+  text-align: center;
+  white-space: nowrap;
+}
 
 // ---------- Nome com avatar ----------
 .pessoa { display: flex; align-items: center; gap: 0.75rem; }

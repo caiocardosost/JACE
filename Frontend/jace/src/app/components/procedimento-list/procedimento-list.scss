@@ -104,11 +104,16 @@
   tbody tr:last-child td { border-bottom: 0; }
   tbody tr:hover { background: #f8fafa; }
 }
-.tabela__acoes { text-align: right; white-space: nowrap; }
+.tabela th.tabela__acoes,
+.tabela td.tabela__acoes {
+  text-align: center;
+  white-space: nowrap;
+}
 .tabela__nome { font-weight: 500; }
 
 // Colunas numéricas alinhadas à direita
-.tabela__numero {
+.tabela th.tabela__numero,
+.tabela td.tabela__numero {
   text-align: right;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;

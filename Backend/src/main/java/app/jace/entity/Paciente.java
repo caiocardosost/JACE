@@ -4,8 +4,14 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 
+import org.hibernate.validator.constraints.br.CPF;
+
+import app.jace.enums.Sexo;
+import app.jace.enums.StatusPaciente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,28 +33,45 @@ public class Paciente {
 	@NotBlank(message = " O nome é obrigatorio")
 	private String nome;
 	
-	@NotBlank(message = "Obrigatorio informar o cpf")
-	@Column(unique = true)
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private Sexo sexo;
+	
+	@NotBlank(message = " O CPF é obrigatorio")
+	@CPF(message = "CPF inválido")
+	@Column(unique = true, length = 11)
 	private String cpf;
 	
 	@NotNull(message = "Obrigatorio inserir a data de nascimento")
-	private LocalDate data_nascimento;
+	private LocalDate dataNascimento;
 	
-	@NotNull (message = "Obrigatorio inserir o numero de telefone")
+	@NotBlank(message = "O telefone é obrigatório")
 	private String telefone;
 	
 	private String email;
 	
-	@NotNull (message = "Obrigatorio inserir o endereco")
+	@NotBlank(message = "O endereço é obrigatório")
 	private String endereco;
 	
-	private String status = "ATIVO";
+	private String responsavelNome;
+	
+	@CPF(message = "CPF inválido")
+	@Column(length = 11)
+	private String responsavelCpf;
+
+	private String responsavelTelefone;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private StatusPaciente status = StatusPaciente.ATIVO;
+	
+	
 	
 	
 	// Calculado a cada leitura. Não existe coluna "idade" no banco, mas propriedade 'idade' será gerado em tempo de execução.
 	public Integer getIdade() {
-		if (data_nascimento == null) return null;
-		return Period.between(data_nascimento, LocalDate.now(ZoneId.of("America/Sao_Paulo"))).getYears();
+		if (dataNascimento == null) return null;
+		return Period.between(dataNascimento, LocalDate.now(ZoneId.of("America/Sao_Paulo"))).getYears();
 	}
 		
 }

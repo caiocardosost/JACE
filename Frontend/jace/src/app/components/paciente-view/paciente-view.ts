@@ -1,13 +1,15 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Paciente } from '../../models/paciente';
 import { PacienteService } from '../../services/paciente-service';
 import { IniciaisPipe } from '../../shared/iniciais-pipe';
+import { CpfPipe } from '../../shared/cpf-pipe';
+import { RotuloPipe } from '../../shared/rotulo-pipe';
 
 @Component({
-  imports: [RouterLink, DatePipe, TitleCasePipe, IniciaisPipe],
+  imports: [RouterLink, DatePipe, IniciaisPipe, CpfPipe, RotuloPipe],
   selector: 'app-paciente-view',
   styleUrl: './paciente-view.scss',
   templateUrl: './paciente-view.html',

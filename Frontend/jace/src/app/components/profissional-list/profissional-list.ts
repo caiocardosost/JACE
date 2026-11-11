@@ -3,9 +3,11 @@ import { Profissional } from '../../models/profissional';
 import { ProfissionalService } from '../../services/profissional-service';
 import { RouterLink } from '@angular/router';
 import { IniciaisPipe } from '../../shared/iniciais-pipe';
+import { RotuloPipe } from '../../shared/rotulo-pipe';
+
 
 @Component({
-  imports: [RouterLink, IniciaisPipe],
+  imports: [RouterLink, IniciaisPipe, RotuloPipe],
   selector: 'app-profissional-list',
   styleUrl: './profissional-list.scss',
   templateUrl: './profissional-list.html',

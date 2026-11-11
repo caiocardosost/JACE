@@ -105,7 +105,12 @@
   tbody tr:last-child td { border-bottom: 0; }
   tbody tr:hover { background: #f8fafa; }
 }
-.tabela__acoes { text-align: right; white-space: nowrap; }
+
+.tabela th.tabela__acoes,
+.tabela td.tabela__acoes {
+  text-align: center;
+  white-space: nowrap;
+}
 
 // ---------- Nome com avatar ----------
 .pessoa { display: flex; align-items: center; gap: 0.75rem; }
@@ -138,6 +143,7 @@
   &--ativo        { background: #dff3ec; color: #1b6b50; }
   &--inadimplente { background: #fbe0e0; color: #9b2c2c; }
   &--inativo      { background: #e9ecee; color: #55626a; }
+  &--em_tratamento { background: #dde9f7; color: #24508a; }
 }
 
 // ---------- Estado vazio ----------

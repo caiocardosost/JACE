@@ -6,7 +6,7 @@
       <h1 class="cabecalho__titulo">Procedimentos</h1>
       <p class="cabecalho__sub">{{ procedimentos().length }} cadastrados</p>
     </div>
-    <!-- Adicionar novo procedimento-->
+    <!-- Ajuste a rota para a do seu formulário de cadastro -->
     <button type="button" class="botao botao--primario" routerLink="/app/procedimento/novo">
       Novo procedimento
     </button>
@@ -14,15 +14,15 @@
 
   <section class="painel">
 
-    <!-- Filtros de busca -->
+    <!-- Filtros (ainda sem lógica: ligar depois a busca e ao status) -->
     <div class="filtros">
       <input type="search" class="campo filtros__busca"
              placeholder="Buscar por nome ou descrição"
              aria-label="Buscar procedimento" />
       <select class="campo filtros__status" aria-label="Filtrar por status">
         <option value="">Todos os status</option>
-        <option value="ativo">Ativo</option>
-        <option value="inativo">Inativo</option>
+        <option value="ATIVO">Ativo</option>
+        <option value="INATIVO">Inativo</option>
       </select>
     </div>
 
@@ -49,21 +49,13 @@
               <td class="tabela__numero">{{ procedimento.duracaoEmMinutos }} min</td>
               <td class="tabela__numero">R$ {{ procedimento.precoBase | number:'1.2-2' }}</td>
               <td>
-                <span class="status status--{{ procedimento.status?.toLowerCase() }}">{{ procedimento.status }}</span>
+                <span class="status status--{{ procedimento.status?.toLowerCase() }}">{{ procedimento.status | rotulo }}</span>
               </td>
               <td class="tabela__acoes">
-                <!-- Editar procedimento -->
-                <button type="button" class="botao botao--texto"
-                        routerLink="/">
-                  Visualizar
-                </button>
+                <!-- Adicionar o routerLink da edição quando existir -->
                 <button type="button" class="botao botao--texto"
                         routerLink="/app/procedimento/editar/{{ procedimento.id }}">
                   Editar
-                </button>
-                <button type="button" class="botao botao--texto"
-                        (click) = "removerProcedimento(procedimento.id)">
-                  Remover
                 </button>
               </td>
             </tr>
@@ -84,7 +76,7 @@
       </table>
     </div>
 
-    <!-- Rodapé/paginação -->
+    <!-- Rodapé (depois vira paginação) -->
     <footer class="rodape">
       Total: {{ procedimentos().length }} procedimentos
     </footer>

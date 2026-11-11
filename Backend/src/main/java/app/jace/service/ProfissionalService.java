@@ -22,6 +22,7 @@ public class ProfissionalService {
 	
 	// Registrar novo Profissional
 	public String registrarProfissional(Profissional profissional) {
+		profissional.setCpf(normalizarCpf(profissional.getCpf()));
 		this.proRepo.save(profissional);
 		return "Profissional registrado com sucesso!";
 	}
@@ -29,6 +30,7 @@ public class ProfissionalService {
 	// Editar Profissional
 	public String editarProfissional(long id, Profissional profissional) {
 		profissional.setId(id);
+		profissional.setCpf(normalizarCpf(profissional.getCpf()));
 		this.proRepo.save(profissional);
 		return "Profissional editado com sucesso!";
 	}
@@ -49,6 +51,13 @@ public class ProfissionalService {
 	public List<Profissional> buscaProfissionalTodos() {
 		List<Profissional> profissionais = this.proRepo.findAll();
 		return profissionais;
+	}
+	
+	// Regras de negócio
+	
+	// recuperando cpf em numeros
+	private String normalizarCpf(String cpf) {
+	    return cpf.replaceAll("\\D", "");
 	}
 	
 	

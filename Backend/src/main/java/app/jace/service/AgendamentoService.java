@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import app.jace.entity.Agendamento;
+import app.jace.enums.StatusAgendamento;
 import app.jace.repository.AgendamentoRepository;
 
 @Service
@@ -79,6 +80,17 @@ public class AgendamentoService {
         return inicio1.isBefore(fim2) && fim1.isAfter(inicio2);
     }
 	
+	// Cancelamento de consulta
+	
+	public String cancelar(Long id, String motivo) {
+	    Agendamento agendamento = agRepo.findById(id)
+	        .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+
+	    agendamento.setStatus(StatusAgendamento.CANCELADO);
+	    agendamento.setMotivoCancelamento(motivo);
+
+	    return "Agendamento cancelado";
+	}
 	
 	
 }

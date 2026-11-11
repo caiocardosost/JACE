@@ -1,15 +1,6 @@
 <!--
-  O que este HTML espera encontrar no componente (.ts):
-
-    paciente      objeto com: nome, cpf, data_nascimento, telefone, email, endereco, status
-    modoEdicao    boolean   -> true em paciente/edit/:id, false em paciente/novo
-    carregando    boolean   -> true enquanto busca o paciente no modo edição
-    salvando      boolean   -> true enquanto o POST/PUT está em andamento
-    erroServidor  string    -> mensagem de erro vinda da API (ex.: CPF já cadastrado)
-    salvar()      envia para a API (só é chamado se o formulário for válido)
-    cancelar()    volta para a lista (ou para a ficha, no modo edição)
-
-  Importar FormsModule (ou FormsModule no array "imports" se for standalone).
+  Usa signals: paciente(), modoEdicao(), carregando(), salvando(), erroServidor().
+  Métodos: salvar(), cancelar(), menorDeIdade() e exibeResponsavel(). Requer FormsModule nos imports do componente.
 -->
 <div class="pagina">
 
@@ -61,12 +52,23 @@
 
             <div class="grupo">
               <label class="rotulo rotulo--obrigatorio" for="nascimento">Data de nascimento</label>
-              <input id="nascimento" name="data_nascimento" type="date" class="campo"
+              <input id="nascimento" name="dataNascimento" type="date" class="campo"
                      [class.campo--erro]="nascimento.invalid && (nascimento.touched || form.submitted)"
-                     [(ngModel)]="paciente().data_nascimento" #nascimento="ngModel" required />
+                     [(ngModel)]="paciente().dataNascimento" #nascimento="ngModel" required />
               @if (nascimento.invalid && (nascimento.touched || form.submitted)) {
                 <p class="erro">Informe a data de nascimento.</p>
               }
+            </div>
+
+            <div class="grupo">
+              <label class="rotulo" for="sexo">Sexo <span class="rotulo__opcional">(opcional)</span></label>
+              <select id="sexo" name="sexo" class="campo" [(ngModel)]="paciente().sexo">
+                <option [ngValue]="null">Não informado</option>
+                <!-- Ajuste os valores para os do seu enum Sexo -->
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMININO">Feminino</option>
+                <option value="OUTRO">Outro</option>
+              </select>
             </div>
 
           </div>
@@ -120,6 +122,52 @@
           </div>
         </div>
 
+        <!-- Responsável legal (aparece para menores de 18 anos) -->
+        @if (exibeResponsavel()) {
+          <div class="secao">
+            <h2 class="secao__titulo">Responsável legal</h2>
+            <p class="secao__dica">Obrigatório para pacientes menores de 18 anos.</p>
+            <div class="grade">
+
+              <div class="grupo grupo--cheio">
+                <label class="rotulo" [class.rotulo--obrigatorio]="menorDeIdade()" for="respNome">Nome do responsável</label>
+                <input id="respNome" name="responsavelNome" type="text" class="campo" autocomplete="off"
+                       [class.campo--erro]="respNome.invalid && (respNome.touched || form.submitted)"
+                       [(ngModel)]="paciente().responsavelNome" #respNome="ngModel"
+                       [required]="menorDeIdade()" />
+                @if (respNome.invalid && (respNome.touched || form.submitted)) {
+                  <p class="erro">Informe o nome do responsável legal.</p>
+                }
+              </div>
+
+              <div class="grupo">
+                <label class="rotulo" [class.rotulo--obrigatorio]="menorDeIdade()" for="respCpf">CPF do responsável</label>
+                <input id="respCpf" name="responsavelCpf" type="text" class="campo" inputmode="numeric"
+                       maxlength="14" placeholder="000.000.000-00" autocomplete="off"
+                       [class.campo--erro]="respCpf.invalid && (respCpf.touched || form.submitted)"
+                       [(ngModel)]="paciente().responsavelCpf" #respCpf="ngModel"
+                       [required]="menorDeIdade()" />
+                @if (respCpf.invalid && (respCpf.touched || form.submitted)) {
+                  <p class="erro">Informe o CPF do responsável legal.</p>
+                }
+              </div>
+
+              <div class="grupo">
+                <label class="rotulo" [class.rotulo--obrigatorio]="menorDeIdade()" for="respTelefone">Telefone do responsável</label>
+                <input id="respTelefone" name="responsavelTelefone" type="tel" class="campo" inputmode="tel"
+                       maxlength="15" placeholder="(11) 90000-0000" autocomplete="off"
+                       [class.campo--erro]="respTelefone.invalid && (respTelefone.touched || form.submitted)"
+                       [(ngModel)]="paciente().responsavelTelefone" #respTelefone="ngModel"
+                       [required]="menorDeIdade()" />
+                @if (respTelefone.invalid && (respTelefone.touched || form.submitted)) {
+                  <p class="erro">Informe o telefone do responsável legal.</p>
+                }
+              </div>
+
+            </div>
+          </div>
+        }
+
         <!-- Situação -->
         <div class="secao">
           <h2 class="secao__titulo">Situação</h2>
@@ -129,8 +177,10 @@
               <label class="rotulo" for="status">Status</label>
               <select id="status" name="status" class="campo" [(ngModel)]="paciente().status">
                 <option value="ATIVO">Ativo</option>
+                <!-- Ajuste para os valores do seu enum StatusPaciente -->
+                <option value="EM_TRATAMENTO">Em tratamento</option>
+                <option value="INADIMPLENTE">Inadimplente</option>
                 <option value="INATIVO">Inativo</option>
-                <!-- Acrescente outros status aqui se o back-end aceitar -->
               </select>
             </div>
 
