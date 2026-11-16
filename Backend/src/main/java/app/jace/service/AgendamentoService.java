@@ -88,6 +88,7 @@ public class AgendamentoService {
 
 	    agendamento.setStatus(StatusAgendamento.CANCELADO);
 	    agendamento.setMotivoCancelamento(motivo);
+	    agRepo.save(agendamento);
 
 	    return "Agendamento cancelado";
 	}

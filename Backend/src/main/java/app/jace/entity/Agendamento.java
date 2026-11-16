@@ -2,6 +2,7 @@ package app.jace.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import app.jace.enums.StatusAgendamento;
 import jakarta.persistence.Column;
@@ -11,8 +12,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,14 +31,17 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank(message = "O nome do paciente é obrigatorio")
-	private String paciente; //sera uma relacao com o obj paciente
+	@ManyToOne
+    @JoinColumn(name = "paciente_id")
+	private Paciente paciente; // Relacao 1-N com o obj paciente
 	
-	@NotBlank(message = "O nome do profissional é obrigatorio")
-	private String profissional; //sera uma relacao com o obj prof
+	@ManyToOne
+    @JoinColumn(name = "profissional_id")
+	private Profissional profissional; // Relacao 1-N com o obj prof
 	
-	@NotBlank(message = "O nome do procedimento é obrigatorio")
-	private String procedimento; //sera uma relacao com o obj proced
+	@ManyToMany
+    @JoinTable(name = "agendamento_procedimento")
+	private List<Procedimento> procedimento; // Relacao N-N o obj proced
 		
 	@NotNull(message = "A data é obrigatoria")
 	private LocalDate data;
